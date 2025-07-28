@@ -84,14 +84,19 @@ function getReadMoreButton(post) {
 document.getElementById('new-post-form').addEventListener('submit', function(e) {
   e.preventDefault();
   const title = this.title.value;
+  const author = this.author.value;
   const content = this.content.value;
   const tags = this.tags.value.split(',').map(tag => tag.trim());
+  const link = this.link.value;
 
   const newPost = {
+    id: Date.now(), // Generate a simple ID
     title,
+    author,
     date: new Date().toISOString().split('T')[0],
     content,
-    tags
+    tags,
+    link: link || ""
   };
 
   console.log('New Post:', newPost);
