@@ -36,10 +36,19 @@ fetch(DATA_URL)
 
 function displayPosts(posts) {
   const postList = document.getElementById("post-list");
+  
+  // Keep the heading and clear only the posts
+  const heading = postList.querySelector('h2');
   postList.innerHTML = ''; // clear any existing content
+  if (heading) {
+    postList.appendChild(heading); // restore the heading
+  }
 
   if (!Array.isArray(posts) || posts.length === 0) {
-    postList.innerHTML = '<p class="text-info">No blog posts found.</p>';
+    const noPostsMsg = document.createElement('p');
+    noPostsMsg.className = 'text-info';
+    noPostsMsg.textContent = 'No blog posts found.';
+    postList.appendChild(noPostsMsg);
     return;
   }
 
