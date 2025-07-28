@@ -49,7 +49,12 @@ function displayPosts(posts) {
 
     postElement.innerHTML = `
       <h3>${post.title || 'Untitled'}</h3>
-      <small class="text-muted">${post.date || 'No date'}</small>
+      <div class="mb-2">
+        <small class="text-muted">
+          <i class="bi bi-calendar3"></i> ${post.date || 'No date'}
+          ${post.author ? `<span class="mx-2">•</span><i class="bi bi-person"></i> ${post.author}` : ''}
+        </small>
+      </div>
       <p>${post.content || 'No content'}</p>
       <p><strong>Tags:</strong> ${post.tags ? post.tags.join(", ") : 'None'}</p>
       ${getReadMoreButton(post)}
