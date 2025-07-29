@@ -35,27 +35,22 @@ fetch(DATA_URL)
   });
 
 function displayPosts(posts) {
-  const postList = document.getElementById("post-list");
-  
-  // Keep the heading and clear only the posts
+  const postList = document.getElementById('post-list');
   const heading = postList.querySelector('h2');
-  postList.innerHTML = ''; // clear any existing content
-  if (heading) {
-    postList.appendChild(heading); // restore the heading
-  }
+  postList.innerHTML = '';
+  if (heading) postList.appendChild(heading);
 
-  if (!Array.isArray(posts) || posts.length === 0) {
+  if (posts.length === 0) {
     const noPostsMsg = document.createElement('p');
-    noPostsMsg.className = 'text-info';
-    noPostsMsg.textContent = 'No blog posts found.';
+    noPostsMsg.textContent = 'No blog posts available.';
+    noPostsMsg.className = 'text-muted';
     postList.appendChild(noPostsMsg);
     return;
   }
 
   posts.forEach(post => {
-    const postElement = document.createElement("div");
-    postElement.className = "post p-3 mb-4 border rounded bg-white shadow-sm";
-
+    const postElement = document.createElement('div');
+    postElement.className = 'post-item'; // Add this class for styling
     postElement.innerHTML = `
       <h3>${post.title || 'Untitled'}</h3>
       <div class="mb-2">
@@ -64,11 +59,12 @@ function displayPosts(posts) {
           ${post.author ? `<span class="mx-2">•</span><i class="bi bi-person"></i> ${post.author}` : ''}
         </small>
       </div>
-      <p>${post.content || 'No content'}</p>
-      <p><strong>Tags:</strong> ${post.tags ? post.tags.join(", ") : 'None'}</p>
+      <p>${post.content || 'No content available'}</p>
+      <div class="mb-2">
+        ${post.tags ? post.tags.map(tag => `<span class="badge bg-secondary me-1">${tag}</span>`).join('') : ''}
+      </div>
       ${getReadMoreButton(post)}
     `;
-
     postList.appendChild(postElement);
   });
 }
